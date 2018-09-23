@@ -4,7 +4,7 @@ import { request } from '@/utils';
 import { CNodeTopic, CNodeTopicDetail } from '@/interface/cnode.interface';
 const defaultGetTopicsParams: GetTopicsParams = {
   limit: 20,
-}
+};
 /**
  * get /topics 主题
  * @param getTopicsParams
@@ -21,7 +21,7 @@ export async function getTopics(getTopicsParams: GetTopicsParams = {}) {
   }
   const { data } = await request.get('/topics', {params});
   if (data.data) {
-    return data.data as Array<CNodeTopic>;
+    return data.data as CNodeTopic[];
   } else {
     // TODO 全局数据错误提示
     return Promise.reject('数据错误');
@@ -37,7 +37,7 @@ export async function getTopicDetail(id: string, params: GetTopicDetailParams = 
   const url = `/topic/${id}`;
   const { data } = await request.get(url, {params});
   if (data.data) {
-    return data.data as Array<CNodeTopicDetail>;
+    return data.data as CNodeTopicDetail[];
   } else {
     // TODO 全局数据错误提示
     return Promise.reject('数据错误');

@@ -25,10 +25,10 @@ export const TOPIC_TABS = {
   },
   job: {
     code: TopicTabs.job,
-    name: '招聘'
+    name: '招聘',
   },
   dev: {
     code: TopicTabs.dev,
-    name: '测试'
-  }
-}
+    name: '测试',
+  },
+};

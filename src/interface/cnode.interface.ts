@@ -1,4 +1,4 @@
-export interface CNodeTopic{
+export interface CNodeTopic {
   id: string;
   author: CNodeAuthor;
   author_id: string;
@@ -13,22 +13,22 @@ export interface CNodeTopic{
   create_at: boolean;
 }
 
-export interface CNodeTopicDetail extends CNodeTopic{
-  replies: Array<CNodeReply>;
+export interface CNodeTopicDetail extends CNodeTopic {
+  replies: CNodeReply[];
   is_collect: boolean;
 }
 
-export interface CNodeReply{
+export interface CNodeReply {
   id: string;
   author: CNodeAuthor;
   content: string;
-  ups: Array<string>;
+  ups: string[];
   create_at: Date;
   reply_id?: string;
   is_uped: boolean;
 }
 
-export interface CNodeAuthor{
+export interface CNodeAuthor {
   loginname: string;
   avatar_url: string;
 }
