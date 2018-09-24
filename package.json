@@ -12,6 +12,7 @@
     "@babel/polyfill": "^7.0.0-rc.1",
     "axios": "^0.18.0",
     "dayjs": "^1.7.5",
+    "github-markdown-css": "^2.10.0",
     "material-design-icons-iconfont": "^3.0.3",
     "qs": "^6.5.2",
     "register-service-worker": "^1.0.0",

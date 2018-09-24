@@ -5,7 +5,7 @@
         <router-view/>
       </v-container>
     </v-content>
-    <v-bottom-nav :value="showTabbar" app color="white">
+    <v-bottom-nav :value="showTabbar" app color="white" style="max-width: 500px; margin: 0 auto; left: auto;">
       <v-btn color="primary" flat to="home">
         <span>首页</span>
         <v-icon>lens</v-icon>

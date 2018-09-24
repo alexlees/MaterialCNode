@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import { RootState } from '@/store/interface';
 import { rootMutations } from '@/store/types';
 import home from './home';
+import topic from './topic';
 
 Vue.use(Vuex);
 
@@ -24,5 +25,6 @@ export default new Vuex.Store({
   actions,
   modules: {
     home,
+    topic,
   },
 });
