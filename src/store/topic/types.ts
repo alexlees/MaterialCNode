@@ -3,5 +3,6 @@ export const topicActions = {
 };
 export const topicMutations = {
   SET_TOPIC_DETAIL: 'SET_TOPIC_DETAIL',
+  DELET_TOPIC_DETAIL: 'DELET_TOPIC_DETAIL',
 };
 export const TopicModule = 'topic';

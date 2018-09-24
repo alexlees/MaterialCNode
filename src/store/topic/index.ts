@@ -29,6 +29,9 @@ const mutations: MutationTree<TopicState> = {
   [topicMutations.SET_TOPIC_DETAIL](state: TopicState, data: CNodeTopicDetail) {
     state.topicDetail = data;
   },
+  [topicMutations.DELET_TOPIC_DETAIL](state: TopicState) {
+    state.topicDetail = null;
+  },
 };
 const TopicModule: Module<TopicState, RootState> = {
   namespaced: true,

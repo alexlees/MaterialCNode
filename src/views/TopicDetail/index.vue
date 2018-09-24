@@ -45,7 +45,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { CNodeTopicDetail } from '@/interface';
-import { topicActions } from '@/store/types';
+import { topicActions, topicMutations } from '@/store/types';
 import { namespace } from 'vuex-class';
 import { TopicState, TopicGetTopicDetail } from '@/store/interface';
 
@@ -61,14 +61,22 @@ export default class TopicDetail extends Vue {
   private topicDetail!: CNodeTopicDetail;
   @Module.Action(topicActions.GET_TOPIC_DETAIL)
   private getTopicDetail!: TopicGetTopicDetail;
+  @Module.Mutation(topicMutations.DELET_TOPIC_DETAIL)
+  private deleteTopicDetail!: () => void;
+
   private tabs: string[] = ['详情', '正文', '评论'];
   private selectTab: number = 1;
   private get component() {
     return Components[this.selectTab];
   }
-
   private created() {
     this.dispatchGetTopicDetail();
+  }
+  private activated() {
+    this.dispatchGetTopicDetail();
+  }
+  private deactivated() {
+    this.deleteTopicDetail();
   }
   private async dispatchGetTopicDetail() {
     const { id } = this.$route.params;
