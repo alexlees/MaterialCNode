@@ -44,7 +44,7 @@ export default class TopicList extends Vue {
   }
   private async getTopicList() {
     try {
-      const data = await getTopics({page: this.getPage(this.tab)});
+      const data = await getTopics({page: this.getPage(this.tab), tab: this.tab});
       this.topicList = [...data];
       window.scroll(0, 0);
     } catch (error) {
