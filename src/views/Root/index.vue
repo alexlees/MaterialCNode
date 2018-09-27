@@ -1,8 +1,10 @@
 <template>
   <v-app>
-    <v-content v-scroll="scroll">
-      <v-container fluid>
-        <router-view/>
+    <v-content>
+      <v-container fluid @touchmove="scroll">
+        <keep-alive>
+          <router-view/>
+        </keep-alive>
       </v-container>
     </v-content>
     <v-bottom-nav :value="showTabbar" app color="white" style="max-width: 500px; margin: 0 auto; left: auto;">
