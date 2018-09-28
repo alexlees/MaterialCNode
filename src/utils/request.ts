@@ -2,6 +2,8 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { axiosConfig } from '@/config';
 import { AxiosResponseCommon } from '@/interface';
 import { Log } from '@/utils/log';
+import store from '@/store';
+import { rootMutations } from '@/store/types';
 
 const AxiosRequestAxiosInstance = axios.create(axiosConfig);
 const pending: Array<{
@@ -19,7 +21,7 @@ function removePending(config: AxiosRequestConfig) {
   });
 }
 AxiosRequestAxiosInstance.interceptors.request.use((config) => {
-  removePending(config);
+  // removePending(config);
   config.cancelToken = new CancelToken((c) => {
     pending.push({ url: `${config.url}&request_type=${config.method}`, cancel: c });
   });
@@ -28,21 +30,22 @@ AxiosRequestAxiosInstance.interceptors.request.use((config) => {
 
 AxiosRequestAxiosInstance.interceptors.response.use(
   (res: AxiosResponse<AxiosResponseCommon<any>>) => {
-    removePending(res.config);
+    // removePending(res.config);
     // 后端返回success不为true报错
     if (!res.data.success) {
-      // TODO 全局网络错误提示
+      store.commit(rootMutations.SHOW_SNACK_BAR, {message: res.data.error_msg});
       Log.log(res.data.error_msg);
       return Promise.reject(res.data.error_msg);
     }
     return res;
   },
   (err) => {
-    // TODO 全局网络错误提示
-    // if (err.message) {
-    //   Log.err(err.message);
-    // }
-    Log.err(err);
+    if (err.message) {
+      store.commit(rootMutations.SHOW_SNACK_BAR, {message: err.message});
+      Log.err(err.message);
+    } else {
+      Log.err(err);
+    }
     return Promise.reject(err);
   },
 );

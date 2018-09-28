@@ -5,3 +5,4 @@ export interface TopicState {
 }
 
 export type TopicGetTopicDetail = (id: string) => Promise<boolean>;
+export type TopicCollectOrDeCollect = () => void;

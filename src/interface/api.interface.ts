@@ -11,3 +11,10 @@ export interface GetTopicDetailParams {
   mdrender?: boolean;
   accesstoken?: string;
 }
+export interface PostAccessTokenData {
+  accesstoken: string;
+}
+export interface PostCollect {
+  accesstoken: string;
+  topic_id: string;
+}

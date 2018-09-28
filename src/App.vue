@@ -1,11 +1,20 @@
 <template>
-  <keep-alive>
-    <router-view/>
-  </keep-alive>
+  <div>
+    <keep-alive>
+      <router-view/>
+    </keep-alive>
+    <CommSnakBar/>
+  </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-@Component
+import CommSnakBar from './CommSnakBar.vue';
+
+@Component({
+  components: {
+    CommSnakBar,
+  },
+})
 export default class App extends Vue {
 }
 </script>

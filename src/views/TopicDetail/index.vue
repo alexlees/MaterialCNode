@@ -7,6 +7,7 @@
       <!-- TODO @click="changeCollect" -->
       <v-btn
         v-if="topicDetail"
+        @click="collectOrDeCollect"
         :color="topicDetail.is_collect ? 'pink' : 'black'"
         dark
         small
@@ -45,14 +46,14 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { CNodeTopicDetail } from '@/interface';
-import { topicActions, topicMutations } from '@/store/types';
+import { topicActions, topicMutations, TopicModule } from '@/store/types';
 import { namespace } from 'vuex-class';
-import { TopicState, TopicGetTopicDetail } from '@/store/interface';
+import { TopicState, TopicGetTopicDetail, TopicCollectOrDeCollect } from '@/store/interface';
 
 const Detail = () => import('./Detail.vue');
 const Topic = () => import('./Topic.vue');
 const Reply = () => import('./Reply.vue');
-const Module = namespace('topic');
+const Module = namespace(TopicModule);
 const Components = [Detail, Topic, Reply];
 
 @Component
@@ -63,6 +64,8 @@ export default class TopicDetail extends Vue {
   private getTopicDetail!: TopicGetTopicDetail;
   @Module.Mutation(topicMutations.DELET_TOPIC_DETAIL)
   private deleteTopicDetail!: () => void;
+  @Module.Action(topicActions.COLLECT_OR_DE_COLLECT)
+  private collectOrDeCollect!: TopicCollectOrDeCollect;
 
   private tabs: string[] = ['详情', '正文', '评论'];
   private selectTab: number = 1;
@@ -77,6 +80,7 @@ export default class TopicDetail extends Vue {
   }
   private deactivated() {
     this.deleteTopicDetail();
+    this.selectTab = 1;
   }
   private async dispatchGetTopicDetail() {
     const { id } = this.$route.params;

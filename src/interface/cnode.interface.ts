@@ -32,3 +32,12 @@ export interface CNodeAuthor {
   loginname: string;
   avatar_url: string;
 }
+export interface CNodeUserInfo {
+  loginname: string;
+  avatar_url: string;
+  githubUsername: string;
+  create_at: Date;
+  score: number;
+  recent_topics: CNodeTopic[];
+  recent_replies: CNodeReply[];
+}

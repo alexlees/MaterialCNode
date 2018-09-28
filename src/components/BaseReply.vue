@@ -8,8 +8,8 @@
         <span style="text-indent: 1em;">{{data.author.loginname}}</span>
       </div>
       <div :class="$style.right">
-        <v-btn flat>
-          <v-icon>thumb_up</v-icon>
+        <v-btn flat @click="$emit('click-up')">
+          <v-icon :color="data.is_uped ? 'pink' : 'black'">thumb_up</v-icon>
           <span style="text-indent: 1em;">{{data.ups.length}}</span>
         </v-btn>
       </div>

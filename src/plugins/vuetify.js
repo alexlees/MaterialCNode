@@ -10,6 +10,8 @@ import {
   VTabs,
   VCard,
   VDivider,
+  VTextField,
+  VSnackbar,
   VAvatar,
   transitions,
 } from 'vuetify'
@@ -28,7 +30,8 @@ Vue.use(Vuetify, {
     VTabs,
     VCard,
     VDivider,
-
+    VTextField,
+    VSnackbar,
     VAvatar,
     transitions,
   },
