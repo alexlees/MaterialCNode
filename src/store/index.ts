@@ -61,7 +61,7 @@ const mutations = {
   },
   [rootMutations.TOGGLE_ADD_PREFIX](s: RootState) {
     s.addPrefix = !s.addPrefix;
-  }
+  },
 };
 const actions = {
   async [rootActions.LOGIN]({commit, dispatch, state}: ActionContext<RootState, RootState>, accesstoken: string) {
