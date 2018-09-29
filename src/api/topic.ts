@@ -1,7 +1,7 @@
 import { GetTopicsParams, GetTopicDetailParams, PostCollect } from '@/interface';
 import { TopicTabs } from '@/enum';
 import { request, getAccessToken, Log } from '@/utils';
-import { CNodeTopic, CNodeTopicDetail } from '@/interface/cnode.interface';
+import { CNodeTopic, CNodeTopicDetail, PostNewReplyData } from '@/interface';
 const defaultGetTopicsParams: GetTopicsParams = {
   limit: 20,
 };
@@ -71,5 +71,14 @@ export async function postDeCollect(params: PostCollect) {
 export async function postReplyUps(replyId: string, params: {accesstoken: string}) {
   const {data} = await request.post(`/reply/${replyId}/ups`, params);
   Log.log(data);
+  return data;
+}
+/**
+ * post /topic/:topic_id/replies 新建评论
+ * @param topicId 主题Id
+ * @param newReplyData 回复内容、token等
+ */
+export async function postNewReply(topicId: string, newReplyData: PostNewReplyData) {
+  const { data} = await request.post(`/topic/${topicId}/replies`, newReplyData);
   return data;
 }

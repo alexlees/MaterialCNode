@@ -1,12 +1,12 @@
 <template>
   <v-card :class="$style.topic">
     <header :class="$style.header">
-      <div :class="$style.author" v-ripple>
+      <router-link tag="div" :to="`/user/${data.author.loginname}`" :class="$style.author" v-ripple>
         <v-avatar :size="40">
           <img :src="data.author.avatar_url" :alt="data.author.loginname">
         </v-avatar>
         <span style="text-indent: 1em;">{{data.author.loginname}}</span>
-      </div>
+      </router-link>
       <div :class="$style.right">
       </div>
     </header>

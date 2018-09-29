@@ -5,6 +5,8 @@ export interface RootState {
   user: UserInfo | null;
   accesstoken: null | string;
   snackBar: SnackBar;
+  prefix: string;
+  addPrefix: boolean;
 }
 export interface UserInfo {
   loginname: string;
@@ -28,3 +30,4 @@ export type RootActionLogOut = () => void;
 export * from './home/interface';
 export * from './topic/interface';
 export * from './favorite/interface';
+export * from './author/interface';

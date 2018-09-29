@@ -7,6 +7,7 @@ import { rootMutations, rootActions } from '@/store/types';
 import home from './home';
 import topic from './topic';
 import favorite from './favorite';
+import author from './author';
 
 Vue.use(Vuex);
 
@@ -20,6 +21,11 @@ const initState: RootState = {
     color: 'error',
     message: '',
   },
+  prefix: `
+  ------
+  来自[MaterialCNode](https://alexlees.top)
+  `,
+  addPrefix: true,
 };
 const mutations = {
   [rootMutations.SHOW_TABBAR](s: RootState) {
@@ -53,6 +59,9 @@ const mutations = {
     s.accesstoken = null;
     removeAccessToken();
   },
+  [rootMutations.TOGGLE_ADD_PREFIX](s: RootState) {
+    s.addPrefix = !s.addPrefix;
+  }
 };
 const actions = {
   async [rootActions.LOGIN]({commit, dispatch, state}: ActionContext<RootState, RootState>, accesstoken: string) {
@@ -99,6 +108,7 @@ const store = new Vuex.Store({
     home,
     topic,
     favorite,
+    author,
   },
 });
 store.dispatch(rootActions.LOGIN);

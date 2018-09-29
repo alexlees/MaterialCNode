@@ -1,8 +1,7 @@
 import { Module, ActionTree, ActionContext, MutationTree } from 'vuex';
-import { TopicState } from '@/store/topic/interface';
-import { RootState, SnackBar } from '@/store/interface';
-import { topicActions, topicMutations } from '@/store/topic/types';
-import { getTopicDetail, postDeCollect, postCollect, postReplyUps } from '@/api';
+import { RootState, SnackBar, TopicState } from '@/store/interface';
+import { topicActions, topicMutations } from '@/store/types';
+import { getTopicDetail, postDeCollect, postCollect, postReplyUps, postNewReply } from '@/api';
 import { Log } from '@/utils';
 import { CNodeTopicDetail } from '@/interface';
 import { rootMutations } from '@/store/types';
@@ -51,12 +50,42 @@ const actions: ActionTree<TopicState, RootState> = {
     if (state.topicDetail === null) {
       return;
     }
+    if (rootState.accesstoken === null) {
+      commit(rootMutations.SHOW_SNACK_BAR, {message: '未登录！'} as SnackBar, {root: true});
+      return;
+    }
     try {
       await postReplyUps(replyId, {accesstoken: rootState.accesstoken as string});
       await dispatch(topicActions.GET_TOPIC_DETAIL, state.topicDetail.id);
     } catch (error) {
       const message = error.message || '网络错误';
       commit(rootMutations.SHOW_SNACK_BAR, {message} as SnackBar, {root: true});
+    }
+  },
+  async [topicActions.POST_NEW_REPLY](
+    { commit, state, rootState, dispatch }: ActionContext<TopicState, RootState>,
+    content: string,
+  ) {
+    if (rootState.accesstoken === null) {
+      commit(rootMutations.SHOW_SNACK_BAR, {message: '未登录！'} as SnackBar, {root: true});
+      return false;
+    }
+    if (state.topicDetail) {
+      try {
+        // 添加后缀
+        if (rootState.addPrefix) {
+          content += rootState.prefix;
+        }
+        const reply = await postNewReply(state.topicDetail.id, {content, accesstoken: rootState.accesstoken});
+        Log.log(reply);
+        await dispatch(topicActions.GET_TOPIC_DETAIL, state.topicDetail.id);
+        commit(rootMutations.SHOW_SNACK_BAR, {message: '评论成功！', color: 'success'} as SnackBar, {root: true});
+      } catch (error) {
+        const message = error.message || '评论失败！';
+        commit(rootMutations.SHOW_SNACK_BAR, {message} as SnackBar, {root: true});
+      }
+    } else {
+      commit(rootMutations.SHOW_SNACK_BAR, {message: '主题不存在！'} as SnackBar, {root: true});
     }
   },
 };

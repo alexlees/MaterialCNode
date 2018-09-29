@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-toolbar dark color="primary" tabs app scroll-off-screen class="tool-bar">
+    <v-toolbar dark color="primary" tabs app scroll-off-screen>
       <v-toolbar-title class="white--text">CNode.js中文社区</v-toolbar-title>
       <v-tabs slot="extension" centered color="primary" :value="tab" grow @input="setTab">
         <v-tab v-for="tab in tabs" :key="tab.code">

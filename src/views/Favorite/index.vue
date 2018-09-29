@@ -3,8 +3,8 @@
     <v-toolbar app color="primary">
       <v-toolbar-title class="white--text">收藏</v-toolbar-title>
       <v-spacer/>
-      <v-btn dark icon>
-        <v-icon>more_vert</v-icon>
+      <v-btn dark icon @click="getFavorites">
+        <v-icon>refresh</v-icon>
       </v-btn>
     </v-toolbar>
     <BaseTopic v-for="topic in favorites" :key="topic.id" :data="topic"/>
@@ -33,6 +33,9 @@ export default class Favorite extends Vue {
   private favorites!: CNodeTopic[];
   private created() {
     Log.log('created');
+    this.getFavorites();
+  }
+  private activated() {
     this.getFavorites();
   }
 }

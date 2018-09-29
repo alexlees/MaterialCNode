@@ -6,6 +6,7 @@ export const rootMutations = {
   DELETE_ACCESS_TOKEN: 'DELETE_ACCESS_TOKEN',
   SHOW_SNACK_BAR: 'SHOW_SNACK_BAR',
   HIDE_SNACK_BAR: 'HIDE_SNACK_BAR',
+  TOGGLE_ADD_PREFIX: 'TOGGLE_ADD_PREFIX',
 };
 
 export const rootActions = {
@@ -16,3 +17,4 @@ export const rootActions = {
 export * from './home/types';
 export * from './topic/types';
 export * from './favorite/types';
+export * from './author/types';

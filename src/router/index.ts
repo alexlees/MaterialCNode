@@ -8,6 +8,7 @@ const Me = () => import('@/views/Me/index.vue');
 const Message = () => import('@/views/Message/index.vue');
 const TopicDetail = () => import('@/views/TopicDetail/index.vue');
 const Login = () => import('@/views/Login/index.vue');
+const User = () => import('@/views/User/index.vue');
 
 Vue.use(Router);
 
@@ -45,6 +46,10 @@ export default new Router({
     {
       path: '/login',
       component: Login,
+    },
+    {
+      path: '/user/:name',
+      component: User,
     },
   ],
 });

@@ -1,10 +1,9 @@
 <template>
   <v-app>
-    <v-toolbar color="white" app tabs scroll-off-screen extended class="tool-bar">
+    <v-toolbar color="white" app tabs>
       <v-btn icon @click="$router.back()">
         <v-icon>arrow_back</v-icon>
       </v-btn>
-      <!-- TODO @click="changeCollect" -->
       <v-btn
         v-if="topicDetail"
         @click="collectOrDeCollect"
@@ -27,9 +26,10 @@
         <keep-alive>
           <component :is="component"/>
         </keep-alive>
-        <!-- 添加评论 -->
+        <NewReply v-model="dialog"/>
         <v-btn
           :disabled="!topicDetail"
+          @click="dialog = true"
           color="green"
           dark
           fixed
@@ -53,10 +53,15 @@ import { TopicState, TopicGetTopicDetail, TopicCollectOrDeCollect } from '@/stor
 const Detail = () => import('./Detail.vue');
 const Topic = () => import('./Topic.vue');
 const Reply = () => import('./Reply.vue');
+const NewReply = () => import('./NewReply.vue');
 const Module = namespace(TopicModule);
 const Components = [Detail, Topic, Reply];
 
-@Component
+@Component({
+  components: {
+    NewReply,
+  },
+})
 export default class TopicDetail extends Vue {
   @Module.State((state: TopicState) => state.topicDetail)
   private topicDetail!: CNodeTopicDetail;
@@ -69,6 +74,7 @@ export default class TopicDetail extends Vue {
 
   private tabs: string[] = ['详情', '正文', '评论'];
   private selectTab: number = 1;
+  private dialog: boolean = false;
   private get component() {
     return Components[this.selectTab];
   }

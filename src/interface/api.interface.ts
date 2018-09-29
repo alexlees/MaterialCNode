@@ -18,3 +18,8 @@ export interface PostCollect {
   accesstoken: string;
   topic_id: string;
 }
+export interface PostNewReplyData {
+  accesstoken: string;
+  content: string;
+  reply_id?: string;
+}

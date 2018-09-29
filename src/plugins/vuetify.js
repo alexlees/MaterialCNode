@@ -13,10 +13,14 @@ import {
   VTextField,
   VSnackbar,
   VAvatar,
+  VChip,
+  VAutocomplete,
+  VDialog,
+  VSwitch,
   transitions,
 } from 'vuetify'
 import 'vuetify/src/stylus/app.styl'
-import { Ripple, Scroll } from 'vuetify/es5/directives'
+import { Ripple, Scroll, Touch } from 'vuetify/es5/directives'
 import zhHans from 'vuetify/src/locale/zh-Hans'
 
 Vue.use(Vuetify, {
@@ -33,6 +37,10 @@ Vue.use(Vuetify, {
     VTextField,
     VSnackbar,
     VAvatar,
+    VChip,
+    VAutocomplete,
+    VDialog,
+    VSwitch,
     transitions,
   },
   theme: {
@@ -47,6 +55,7 @@ Vue.use(Vuetify, {
   directives: {
     Ripple,
     Scroll,
+    Touch,
   },
   customProperties: true,
   iconfont: 'md',
