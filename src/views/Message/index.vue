@@ -1,12 +1,12 @@
 <template>
-  <router-view/>
+  <div>
+    消息
+  </div>
 </template>
+
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-@Component
-export default class App extends Vue {
-}
-</script>
 
-<style>
-</style>
+@Component
+export default class Message extends Vue {}
+</script>
