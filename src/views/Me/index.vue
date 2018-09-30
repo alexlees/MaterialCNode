@@ -15,7 +15,7 @@
       <span>登陆</span>
       <v-icon right dark>person</v-icon>
     </v-btn>
-    <v-switch :value="addPrefix" @change="toggle" label="评论加尾"></v-switch>
+    <v-switch :input-value="addPrefix" @change="toggle" label="评论加尾"></v-switch>
   </div>
 </template>
 

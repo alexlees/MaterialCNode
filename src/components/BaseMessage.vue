@@ -1,49 +1,48 @@
 <template>
-  <div :class="{[$style.topic]: true, [$style.select]: data.id === replyId}">
+  <v-card :class="$style.topic">
     <header :class="$style.header">
-      <div :class="$style.author" v-ripple>
+      <router-link tag="div" :to="`/user/${data.author.loginname}`" :class="$style.author" v-ripple>
         <v-avatar :size="40">
           <img :src="data.author.avatar_url" :alt="data.author.loginname">
         </v-avatar>
         <span style="text-indent: 1em;">{{data.author.loginname}}</span>
-      </div>
+      </router-link>
       <div :class="$style.right">
-        <v-btn flat @click="$emit('click-up')">
-          <v-icon :color="data.is_uped ? 'pink' : 'black'">thumb_up</v-icon>
-          <span style="text-indent: 1em;">{{data.ups.length}}</span>
-        </v-btn>
+        <span class="greeb--text">{{data.has_read ? '已读' : '未读'}}</span>
       </div>
     </header>
-    <BaseMarkDown :content="data.content"/>
+    <router-link tag="main" :to="`/topic/${data.topic.id}?reply#${data.reply.id}`" :class="$style.content" v-ripple>
+      <BaseMarkDown :content="data.reply.content"/>
+    </router-link>
     <v-divider/>
-  </div>
+    <footer :class="$style.footer">
+      <v-btn flat round disabled>
+        {{data.create_at | fromNow}}
+      </v-btn >
+      <v-chip>
+        {{data.type | type}}
+      </v-chip>
+    </footer>
+  </v-card>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { CNodeReply } from '@/interface';
+import { CNodeTopic, CNodeMessage } from '@/interface/cnode.interface';
 import BaseMarkDown from './BaseMarkDown.vue';
-import { Log } from '@/utils';
-import { namespace } from 'vuex-class';
-import { topicActions, topicMutations, TopicModule } from '@/store/types';
-import { TopicState } from '@/store/interface';
-
-const Module = namespace(TopicModule);
 @Component({
   components: {
     BaseMarkDown,
   },
+  filters: {
+    type(t: 'reply' | 'at') {
+      return t === 'reply' ? '回复' : '@';
+    },
+  },
 })
-export default class BaseReply extends Vue {
-  @Prop({required: true})
-  private data!: CNodeReply;
-  @Module.State((state: TopicState) => state.replyId)
-  private replyId!: string;
-  private mounted() {
-    if (this.data.id === this.replyId) {
-      this.$el.scrollIntoView();
-    }
-  }
+export default class BaseMessage extends Vue {
+  @Prop({ required: true })
+  private data!: CNodeMessage;
 }
 </script>
 
@@ -91,8 +90,5 @@ export default class BaseReply extends Vue {
   justify-content: space-around;
   align-content: stretch;
   align-items: stretch;
-}
-.select{
-  border: 1px solid pink;
 }
 </style>

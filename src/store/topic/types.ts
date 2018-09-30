@@ -7,5 +7,7 @@ export const topicActions = {
 export const topicMutations = {
   SET_TOPIC_DETAIL: 'SET_TOPIC_DETAIL',
   DELET_TOPIC_DETAIL: 'DELET_TOPIC_DETAIL',
+  SET_REPLY_ID: 'SET_REPLY_ID',
+  DELET_REPLY_ID: 'DELET_REPLY_ID',
 };
 export const TopicModule = 'topic';

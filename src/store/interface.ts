@@ -31,3 +31,4 @@ export * from './home/interface';
 export * from './topic/interface';
 export * from './favorite/interface';
 export * from './author/interface';
+export * from './messages/interface';

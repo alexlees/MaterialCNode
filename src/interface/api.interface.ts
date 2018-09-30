@@ -23,3 +23,7 @@ export interface PostNewReplyData {
   content: string;
   reply_id?: string;
 }
+export interface GetUserMessagesParams {
+  accesstoken: string;
+  mdrender?: boolean;
+}

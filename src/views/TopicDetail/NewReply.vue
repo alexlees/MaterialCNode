@@ -1,6 +1,6 @@
 <template>
     <v-layout row justify-center>
-    <v-dialog :value="value" persistent max-width="500px" fullscreen lazy transition="dialog-bottom-transition">
+    <v-dialog :value="value" full-width persistent max-width="500px" fullscreen lazy transition="dialog-bottom-transition">
       <v-card>
         <v-toolbar dark color="primary" >
           <v-btn icon @click="$emit('input', false)">

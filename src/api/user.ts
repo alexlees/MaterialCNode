@@ -1,6 +1,11 @@
 import { request } from '@/utils';
-import { AxiosResponseCommon, CNodeUserInfo, CNodeTopic } from '@/interface';
-import { Log } from '@/utils';
+import {
+  AxiosResponseCommon,
+  CNodeUserInfo,
+  CNodeTopic,
+  GetUserMessagesParams,
+  CNodeMessages,
+} from '@/interface';
 /**
  * post /accesstoken 验证 accessToken 的正确性
  * @param data
@@ -31,4 +36,11 @@ export async function getUserFavorite(loginname: string) {
   const res: CNodeTopic[] = data.data;
   return res;
 }
-
+/**
+ * get /messages 获取已读和未读消息
+ * @param getUserMessagesParams
+ */
+export async function getUserMessages(getUserMessagesParams: GetUserMessagesParams) {
+  const { data } = await request.get('/messages', {params: getUserMessagesParams});
+  return data.data as CNodeMessages;
+}

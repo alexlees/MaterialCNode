@@ -18,3 +18,4 @@ export * from './home/types';
 export * from './topic/types';
 export * from './favorite/types';
 export * from './author/types';
+export * from './messages/types';

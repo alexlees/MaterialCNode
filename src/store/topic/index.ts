@@ -96,11 +96,18 @@ const mutations: MutationTree<TopicState> = {
   [topicMutations.DELET_TOPIC_DETAIL](state: TopicState) {
     state.topicDetail = null;
   },
+  [topicMutations.SET_REPLY_ID](state: TopicState, id: string) {
+    state.replyId = id;
+  },
+  [topicMutations.DELET_REPLY_ID](state: TopicState) {
+    state.replyId = null;
+  },
 };
 const TopicModule: Module<TopicState, RootState> = {
   namespaced: true,
   state: {
     topicDetail: null,
+    replyId: null,
   },
   mutations,
   actions,

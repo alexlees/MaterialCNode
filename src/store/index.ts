@@ -8,6 +8,7 @@ import home from './home';
 import topic from './topic';
 import favorite from './favorite';
 import author from './author';
+import messages from './messages';
 
 Vue.use(Vuex);
 
@@ -109,6 +110,7 @@ const store = new Vuex.Store({
     topic,
     favorite,
     author,
+    messages,
   },
 });
 store.dispatch(rootActions.LOGIN);

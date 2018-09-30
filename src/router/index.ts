@@ -9,6 +9,7 @@ const Message = () => import('@/views/Message/index.vue');
 const TopicDetail = () => import('@/views/TopicDetail/index.vue');
 const Login = () => import('@/views/Login/index.vue');
 const User = () => import('@/views/User/index.vue');
+const NotFound = () => import('@/views/NotFound/index.vue');
 
 Vue.use(Router);
 
@@ -50,6 +51,10 @@ export default new Router({
     {
       path: '/user/:name',
       component: User,
+    },
+    {
+      path: '*',
+      component: NotFound,
     },
   ],
 });

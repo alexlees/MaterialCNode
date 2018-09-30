@@ -41,3 +41,25 @@ export interface CNodeUserInfo {
   recent_topics: CNodeTopic[];
   recent_replies: CNodeReply[];
 }
+export interface CNodeMessage {
+  id: string;
+  type: 'at' | 'reply';
+  has_read: boolean;
+  author: CNodeAuthor;
+  topic: {
+    id: string;
+    title: string;
+    last_reply_at: Date;
+  };
+  reply: {
+    id: string;
+    content: string;
+    ups: [];
+    create_at: Date;
+  };
+}
+
+export interface CNodeMessages {
+  has_read_messages: CNodeMessage[];
+  hasnot_read_messages: CNodeMessage[];
+}
