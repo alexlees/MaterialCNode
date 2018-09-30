@@ -41,7 +41,9 @@ export default class BaseReply extends Vue {
   private replyId!: string;
   private mounted() {
     if (this.data.id === this.replyId) {
-      this.$el.scrollIntoView();
+      setTimeout(() => {
+        this.$el.scrollIntoView({behavior: 'smooth', block: 'end'});
+      }, 20);
     }
   }
 }
