@@ -28,6 +28,7 @@ Vue.use(Vuetify, {
     VTabs,
     VCard,
     VDivider,
+
     VAvatar,
     transitions,
   },

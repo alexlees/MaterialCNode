@@ -6,6 +6,7 @@ const Home = () => import('@/views/Home/index.vue');
 const Favorite = () => import('@/views/Favorite/index.vue');
 const Me = () => import('@/views/Me/index.vue');
 const Message = () => import('@/views/Message/index.vue');
+const TopicDetail = () => import('@/views/TopicDetail/index.vue');
 
 Vue.use(Router);
 
@@ -35,6 +36,10 @@ export default new Router({
           component: Me,
         },
       ],
+    },
+    {
+      path: '/topic/:id',
+      component: TopicDetail,
     },
   ],
 });

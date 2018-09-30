@@ -6,3 +6,4 @@ export const rootMutations = {
 export const rootActions = {
 };
 export * from './home/types';
+export * from './topic/types';
