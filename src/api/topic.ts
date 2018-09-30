@@ -1,7 +1,7 @@
-import { GetTopicsParams, GetTopicDetailParams } from '@/interface';
+import { GetTopicsParams, GetTopicDetailParams, PostCollect } from '@/interface';
 import { TopicTabs } from '@/enum';
-import { request } from '@/utils';
-import { CNodeTopic, CNodeTopicDetail } from '@/interface/cnode.interface';
+import { request, getAccessToken, Log } from '@/utils';
+import { CNodeTopic, CNodeTopicDetail, PostNewReplyData } from '@/interface';
 const defaultGetTopicsParams: GetTopicsParams = {
   limit: 20,
 };
@@ -32,14 +32,53 @@ export async function getTopics(getTopicsParams: GetTopicsParams = {}) {
  * @param id string 主题ID
  * @param params
  */
-export async function getTopicDetail(id: string, params: GetTopicDetailParams = {}) {
+export async function getTopicDetail(
+  id: string,
+  {accesstoken = getAccessToken(), mdrender = true}: GetTopicDetailParams = {},
+) {
   // TODO 检查参数
   const url = `/topic/${id}`;
-  const { data } = await request.get(url, {params});
+  const { data } = await request.get(url, {params: {accesstoken, mdrender}});
   if (data.data) {
     return data.data as CNodeTopicDetail;
   } else {
     // TODO 全局数据错误提示
     return Promise.reject('数据错误');
   }
+}
+/**
+ * post /topic_collect/collect 收藏主题
+ * @param params
+ */
+export async function postCollect(params: PostCollect) {
+  const {data} = await request.post('/topic_collect/collect', params);
+  Log.log(data);
+  return data;
+}
+/**
+ * post /topic_collect/de_collect 取消主题
+ * @param params
+ */
+export async function postDeCollect(params: PostCollect) {
+  const {data} = await request.post('/topic_collect/de_collect', params);
+  Log.log(data);
+  return data;
+}
+/**
+ * post /reply/:reply_id/ups 为评论点赞
+ * @param replyId  评论id
+ */
+export async function postReplyUps(replyId: string, params: {accesstoken: string}) {
+  const {data} = await request.post(`/reply/${replyId}/ups`, params);
+  Log.log(data);
+  return data;
+}
+/**
+ * post /topic/:topic_id/replies 新建评论
+ * @param topicId 主题Id
+ * @param newReplyData 回复内容、token等
+ */
+export async function postNewReply(topicId: string, newReplyData: PostNewReplyData) {
+  const { data} = await request.post(`/topic/${topicId}/replies`, newReplyData);
+  return data;
 }

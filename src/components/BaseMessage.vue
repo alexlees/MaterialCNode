@@ -8,30 +8,41 @@
         <span style="text-indent: 1em;">{{data.author.loginname}}</span>
       </router-link>
       <div :class="$style.right">
+        <span class="greeb--text">{{data.has_read ? '已读' : '未读'}}</span>
       </div>
     </header>
-    <router-link tag="main" :to="`/topic/${data.id}`" :class="$style.content" v-ripple>
-      <p>{{data.title}}</p>
+    <router-link tag="main" :to="`/topic/${data.topic.id}?reply#${data.reply.id}`" :class="$style.content" v-ripple>
+      <BaseMarkDown :content="data.reply.content"/>
     </router-link>
     <v-divider/>
     <footer :class="$style.footer">
-      <v-btn flat round disabled>{{data.visit_count}}浏览</v-btn >
-      <v-btn flat round disabled>{{data.reply_count}}评论</v-btn >
       <v-btn flat round disabled>
-        {{data.last_reply_at | fromNow}}
+        {{data.create_at | fromNow}}
       </v-btn >
+      <v-chip>
+        {{data.type | type}}
+      </v-chip>
     </footer>
   </v-card>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { CNodeTopic } from '@/interface/cnode.interface';
-
-@Component
-export default class BaseTopic extends Vue {
+import { CNodeTopic, CNodeMessage } from '@/interface/cnode.interface';
+import BaseMarkDown from './BaseMarkDown.vue';
+@Component({
+  components: {
+    BaseMarkDown,
+  },
+  filters: {
+    type(t: 'reply' | 'at') {
+      return t === 'reply' ? '回复' : '@';
+    },
+  },
+})
+export default class BaseMessage extends Vue {
   @Prop({ required: true })
-  private data!: CNodeTopic;
+  private data!: CNodeMessage;
 }
 </script>
 

@@ -1,12 +1,12 @@
 <template>
   <v-app>
-    <v-toolbar color="white" app tabs scroll-off-screen extended class="tool-bar">
+    <v-toolbar color="white" app tabs>
       <v-btn icon @click="$router.back()">
         <v-icon>arrow_back</v-icon>
       </v-btn>
-      <!-- TODO @click="changeCollect" -->
       <v-btn
         v-if="topicDetail"
+        @click="collectOrDeCollect"
         :color="topicDetail.is_collect ? 'pink' : 'black'"
         dark
         small
@@ -26,9 +26,10 @@
         <keep-alive>
           <component :is="component"/>
         </keep-alive>
-        <!-- 添加评论 -->
+        <NewReply v-model="dialog"/>
         <v-btn
           :disabled="!topicDetail"
+          @click="dialog = true"
           color="green"
           dark
           fixed
@@ -43,19 +44,31 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import { CNodeTopicDetail } from '@/interface';
-import { topicActions, topicMutations } from '@/store/types';
+import { topicActions, topicMutations, TopicModule } from '@/store/types';
 import { namespace } from 'vuex-class';
-import { TopicState, TopicGetTopicDetail } from '@/store/interface';
+import {
+  TopicState,
+  TopicGetTopicDetail,
+  TopicCollectOrDeCollect,
+  TopicSetReplyId,
+  TopicDeleteReplyId,
+} from '@/store/interface';
+import { Log } from '@/utils';
 
 const Detail = () => import('./Detail.vue');
 const Topic = () => import('./Topic.vue');
 const Reply = () => import('./Reply.vue');
-const Module = namespace('topic');
+const NewReply = () => import('./NewReply.vue');
+const Module = namespace(TopicModule);
 const Components = [Detail, Topic, Reply];
 
-@Component
+@Component({
+  components: {
+    NewReply,
+  },
+})
 export default class TopicDetail extends Vue {
   @Module.State((state: TopicState) => state.topicDetail)
   private topicDetail!: CNodeTopicDetail;
@@ -63,20 +76,40 @@ export default class TopicDetail extends Vue {
   private getTopicDetail!: TopicGetTopicDetail;
   @Module.Mutation(topicMutations.DELET_TOPIC_DETAIL)
   private deleteTopicDetail!: () => void;
+  @Module.Action(topicActions.COLLECT_OR_DE_COLLECT)
+  private collectOrDeCollect!: TopicCollectOrDeCollect;
+  @Module.Mutation(topicMutations.SET_REPLY_ID)
+  private setReplyId!: TopicSetReplyId;
+  @Module.Mutation(topicMutations.DELET_REPLY_ID)
+  private deleteReplyId!: TopicDeleteReplyId;
 
   private tabs: string[] = ['详情', '正文', '评论'];
   private selectTab: number = 1;
+  private dialog: boolean = false;
+
   private get component() {
     return Components[this.selectTab];
   }
   private created() {
     this.dispatchGetTopicDetail();
+    this.shouldScroll();
   }
   private activated() {
     this.dispatchGetTopicDetail();
+    this.shouldScroll();
   }
   private deactivated() {
     this.deleteTopicDetail();
+    this.selectTab = 1;
+    this.deleteReplyId();
+  }
+  private shouldScroll() {
+    if (this.$route.query.reply === null) {
+      this.selectTab = 2;
+    }
+    if (this.$route.hash) {
+      this.setReplyId(this.$route.hash.slice(1));
+    }
   }
   private async dispatchGetTopicDetail() {
     const { id } = this.$route.params;

@@ -1,13 +1,15 @@
 <template>
   <v-app>
     <v-content>
-      <v-container fluid @touchmove="scroll">
+      <v-container fluid v-touch="{
+        up: () => swipe('Up'),
+        down: () => swipe('Down')}">
         <keep-alive>
           <router-view/>
         </keep-alive>
       </v-container>
     </v-content>
-    <v-bottom-nav :value="showTabbar" app color="white" style="max-width: 500px; margin: 0 auto; left: auto;">
+    <v-bottom-nav :value="showTabbar" app color="white">
       <v-btn color="primary" flat to="home">
         <span>首页</span>
         <v-icon>lens</v-icon>
@@ -45,26 +47,12 @@ export default class Root extends Vue {
   private hide!: RootMutationHideTabbar;
   private scrollY: number | null = null;
   private timmerId: NodeJS.Timer | null = null;
-  private scroll() {
-    if (this.timmerId) {
-      clearTimeout(this.timmerId);
+  private swipe(down: 'Down' | 'Up') {
+    if (down === 'Down') {
+      this.show();
+    } else {
+      this.hide();
     }
-    if (this.scrollY === null) {
-      this.scrollY = window.scrollY;
-    }
-    this.timmerId = setTimeout(() => {
-      if (this.scrollY === null) {
-        return;
-      } else {
-        const diff = window.scrollY - this.scrollY;
-        if (diff >= 60) {
-          this.hide();
-        } else if (diff <= -60) {
-          this.show();
-        }
-        this.scrollY = null;
-      }
-    }, 100);
   }
 }
 </script>
