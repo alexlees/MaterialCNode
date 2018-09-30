@@ -108,6 +108,11 @@ export default class TopicDetail extends Vue {
       this.selectTab = 2;
     }
     if (this.$route.hash) {
+      // setTimeout(() => {
+      //   const el = document.getElementById(this.$route.hash.slice(1))!;
+      //   Log.log(el);
+      //   el.scrollIntoView();
+      // }, 30);
       this.setReplyId(this.$route.hash.slice(1));
     }
   }

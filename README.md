@@ -1,26 +1,17 @@
-# materialcnode
+# [MaterialCNode](https://alexlees.top)
 
-## Project setup
-```
-yarn install
-```
+> 一个好用的PWA CNode.js社区。
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+## 技术栈
 
-### Compiles and minifies for production
-```
-yarn run build
-```
+1. Vue 全家桶配合TypeScript更配哦。
+2. [Vuetify](https://vuetifyjs.com)(再也不用担心布局了)
 
-### Lints and fixes files
-```
-yarn run lint
-```
+### 截图
+![首页](./imgs/imgsScreenshot_2018-09-30-15-29-01-252_com.android.ch.png)
 
-### Run your unit tests
-```
-yarn run test:unit
-```
+------
+
+![详情](./imgs/imgsScreenshot_2018-09-30-15-29-11-585_com.android.ch.png)
+
+### [GitHub](https://github.com/alexlees/MaterialCNode)
