@@ -4,14 +4,14 @@ class LogClass {
   }
   private development: boolean = process.env.NODE_ENV === 'development';
   private constructor() {}
-  public log(message: any) {
+  public log(...message: any[]) {
     if (this.development) {
-      console.log(message);
+      console.log(...message);
     }
   }
-  public err(message: any) {
+  public err(...message: any[]) {
     if (this.development) {
-      console.error(message);
+      console.error(...message);
     }
   }
   public get dev() {

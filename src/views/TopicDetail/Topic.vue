@@ -1,5 +1,5 @@
 <template>
-  <BaseMarkDown :content="content"/>
+  <BaseMarkDown :content="content" v-photoswipe/>
 </template>
 
 <script lang="ts">

@@ -56,6 +56,7 @@ import {
   TopicDeleteReplyId,
 } from '@/store/interface';
 import { Log } from '@/utils';
+import '@/directives/directive-photoswipe';
 
 const Detail = () => import('./Detail.vue');
 const Topic = () => import('./Topic.vue');

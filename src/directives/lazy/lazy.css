@@ -1,0 +1,25 @@
+.lazy::after{
+  content: '';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+  min-height: 100px;
+  background-color: #eeeeee;
+  color: #999999;
+}
+.lazy{
+  display: block;
+}
+.animation{
+  animation: fade 1s ease;
+}
+@keyframes fade{
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
