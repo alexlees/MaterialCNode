@@ -17,19 +17,20 @@
         <v-icon>favorite</v-icon>
       </v-btn>
       <v-toolbar-title class="black--text">{{topicDetail ? topicDetail.title : '加载中...'}}</v-toolbar-title>
-      <v-tabs slot="extension" centered v-model="selectTab" grow>
-        <v-tab v-for="(tab, index) in tabs" :key="index">{{tab}}</v-tab>
+      <v-tabs slot="extension" centered grow>
+        <v-tab :to="`/topic/${$route.params.id}/info`" exact replace>详情</v-tab>
+        <v-tab :to="`/topic/${$route.params.id}/topic`" exact replace>正文</v-tab>
+        <v-tab :to="`/topic/${$route.params.id}/reply`" exact replace>评论</v-tab>
       </v-tabs>
     </v-toolbar>
     <v-content>
       <v-container fluid>
         <keep-alive>
-          <component :is="component"/>
+          <router-view/>
         </keep-alive>
-        <NewReply v-model="dialog"/>
         <v-btn
           :disabled="!topicDetail"
-          @click="dialog = true"
+          @click="toNewReply"
           color="green"
           dark
           fixed
@@ -58,18 +59,9 @@ import {
 import { Log } from '@/utils';
 import '@/directives/directive-photoswipe';
 
-const Detail = () => import('./Detail.vue');
-const Topic = () => import('./Topic.vue');
-const Reply = () => import('./Reply.vue');
-const NewReply = () => import('./NewReply.vue');
 const Module = namespace(TopicModule);
-const Components = [Detail, Topic, Reply];
 
-@Component({
-  components: {
-    NewReply,
-  },
-})
+@Component
 export default class TopicDetail extends Vue {
   @Module.State((state: TopicState) => state.topicDetail)
   private topicDetail!: CNodeTopicDetail;
@@ -84,13 +76,6 @@ export default class TopicDetail extends Vue {
   @Module.Mutation(topicMutations.DELET_REPLY_ID)
   private deleteReplyId!: TopicDeleteReplyId;
 
-  private tabs: string[] = ['详情', '正文', '评论'];
-  private selectTab: number = 1;
-  private dialog: boolean = false;
-
-  private get component() {
-    return Components[this.selectTab];
-  }
   private created() {
     this.dispatchGetTopicDetail();
     this.shouldScroll();
@@ -101,19 +86,10 @@ export default class TopicDetail extends Vue {
   }
   private deactivated() {
     this.deleteTopicDetail();
-    this.selectTab = 1;
     this.deleteReplyId();
   }
   private shouldScroll() {
-    if (this.$route.query.reply === null) {
-      this.selectTab = 2;
-    }
     if (this.$route.hash) {
-      // setTimeout(() => {
-      //   const el = document.getElementById(this.$route.hash.slice(1))!;
-      //   Log.log(el);
-      //   el.scrollIntoView();
-      // }, 30);
       this.setReplyId(this.$route.hash.slice(1));
     }
   }
@@ -121,6 +97,9 @@ export default class TopicDetail extends Vue {
     const { id } = this.$route.params;
     const isOk = await this.getTopicDetail(id);
     // TODO 错误提示
+  }
+  private toNewReply() {
+    this.$router.push({path: `/topic/${this.$route.params.id}/newreply`});
   }
 }
 </script>

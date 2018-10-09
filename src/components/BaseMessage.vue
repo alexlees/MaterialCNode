@@ -11,7 +11,7 @@
         <span class="greeb--text">{{data.has_read ? '已读' : '未读'}}</span>
       </div>
     </header>
-    <router-link tag="main" :to="`/topic/${data.topic.id}?reply#${data.reply.id}`" :class="$style.content" v-ripple>
+    <router-link tag="main" :to="`/topic/${data.topic.id}/reply#${data.reply.id}`" :class="$style.content" v-ripple>
       <BaseMarkDown :content="data.reply.content"/>
     </router-link>
     <v-divider/>

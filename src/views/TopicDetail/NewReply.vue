@@ -1,46 +1,44 @@
 <template>
-    <v-layout row justify-center>
-    <v-dialog :value="value" full-width persistent max-width="500px" fullscreen lazy transition="dialog-bottom-transition">
-      <v-card>
-        <v-toolbar dark color="primary" >
-          <v-btn icon @click="$emit('input', false)">
-            <v-icon>close</v-icon>
-          </v-btn>
-          <v-toolbar-title>添加评论</v-toolbar-title>
-        </v-toolbar>
-        <v-card-text>
-          <v-container grid-list-md>
-            <v-layout wrap>
-              <v-flex xs12 sm6 md4>
-                <v-text-field
-                  label="评论"
-                  hint="添加评论吧"
-                  persistent-hint
-                  required
-                  v-model="content"
-                ></v-text-field>
-              </v-flex>
-              <v-flex xs12 sm6>
-                <v-autocomplete
-                  :items="users"
-                  label="@"
-                  hint="@当前主题涉及用户"
-                  multiple
-                  chips
-                  v-model="at"
-                ></v-autocomplete>
-              </v-flex>
-            </v-layout>
-          </v-container>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" flat @click.native="$emit('input', false)">取消</v-btn>
-          <v-btn color="blue darken-1" flat @click.native="sendReply">发送</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </v-layout>
+  <transition enter-active-class="slideInUp" leave-active-class="slideOutDown">
+    <v-card :class="$style.page">
+      <v-toolbar dark color="primary" >
+        <v-btn icon @click="$router.back()">
+          <v-icon>close</v-icon>
+        </v-btn>
+        <v-toolbar-title>添加评论</v-toolbar-title>
+      </v-toolbar>
+      <v-card-text>
+        <v-container grid-list-md>
+          <v-layout wrap>
+            <v-flex xs12 sm6 md4>
+              <v-text-field
+                label="评论"
+                hint="添加评论吧"
+                persistent-hint
+                required
+                v-model="content"
+              ></v-text-field>
+            </v-flex>
+            <v-flex xs12 sm6>
+              <v-autocomplete
+                :items="users"
+                label="@"
+                hint="@当前主题涉及用户"
+                multiple
+                chips
+                v-model="at"
+              ></v-autocomplete>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="blue darken-1" flat @click.native="$router.back()">取消</v-btn>
+        <v-btn color="blue darken-1" flat @click.native="sendReply">发送</v-btn>
+      </v-card-actions>
+    </v-card>
+  </transition>
 </template>
 
 <script lang="ts">
@@ -53,8 +51,6 @@ const Module = namespace(TopicModule);
 
 @Component
 export default class NewReply extends Vue {
-  @Prop({required: true})
-  private value!: boolean;
   @Module.State((state: TopicState) => state.topicDetail ? state.topicDetail.replies : [])
   private replies!: CNodeReply[];
   @Module.State((state: TopicState) => state.topicDetail ? state.topicDetail.author.loginname : '')
@@ -72,8 +68,49 @@ export default class NewReply extends Vue {
     .join(' ');
 
     await this.newReply(`${at} ${this.content}`);
-    this.$emit('input', false);
+    this.$router.back();
     this.content = '';
+    this.at = [];
   }
 }
 </script>
+<style>
+@keyframes slideInUp {
+  from {
+    transform: translate3d(0, 100%, 0);
+    visibility: visible;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.slideInUp {
+  animation: slideInUp 1s ease both;
+}
+@keyframes slideOutDown {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    visibility: hidden;
+    transform: translate3d(0, 100%, 0);
+  }
+}
+
+.slideOutDown {
+  animation: slideOutDown 1s ease both;
+}
+</style>
+<style module>
+.page{
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 99999;
+}
+</style>

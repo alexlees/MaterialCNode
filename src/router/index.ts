@@ -10,7 +10,10 @@ const TopicDetail = () => import('@/views/TopicDetail/index.vue');
 const Login = () => import('@/views/Login/index.vue');
 const User = () => import('@/views/User/index.vue');
 const NotFound = () => import('@/views/NotFound/index.vue');
-
+const Topic = () => import('@/views/TopicDetail/Topic.vue');
+const Detail = () => import('@/views/TopicDetail/Detail.vue');
+const Reply = () => import('@/views/TopicDetail/Reply.vue');
+const NewReply = () => import('@/views/TopicDetail/NewReply.vue');
 Vue.use(Router);
 
 export default new Router({
@@ -43,6 +46,25 @@ export default new Router({
     {
       path: '/topic/:id',
       component: TopicDetail,
+      redirect: '/topic/:id/topic',
+      children: [
+        {
+          path: '/topic/:id/topic',
+          component: Topic,
+        },
+        {
+          path: '/topic/:id/reply',
+          component: Reply,
+        },
+        {
+          path: '/topic/:id/info',
+          component: Detail,
+        },
+        {
+          path: '/topic/:id/newreply',
+          component: NewReply,
+        },
+      ],
     },
     {
       path: '/login',
