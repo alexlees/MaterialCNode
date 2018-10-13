@@ -1,4 +1,4 @@
-import DirectivePhotoswipe from './install';
+import DirectivePhotoswipe from 'directive-photoswipe';
 import Vue from 'vue';
 
-Vue.use(DirectivePhotoswipe);
+Vue.use(DirectivePhotoswipe, {loop: false});

@@ -12,6 +12,7 @@
     "@babel/polyfill": "^7.0.0-rc.1",
     "axios": "^0.18.0",
     "dayjs": "^1.7.5",
+    "directive-photoswipe": "^1.0.1",
     "github-markdown-css": "^2.10.0",
     "material-design-icons-iconfont": "^3.0.3",
     "photoswipe": "^4.1.2",

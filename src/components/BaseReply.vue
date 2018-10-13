@@ -1,12 +1,12 @@
 <template>
   <div :class="{[$style.topic]: true, [$style.select]: data.id === replyId}">
     <header :class="$style.header">
-      <div :class="$style.author" v-ripple>
+      <router-link :class="$style.author" v-ripple tag="div" :to="`/user/${data.author.loginname}`">
         <v-avatar :size="40">
           <img :src="data.author.avatar_url" :alt="data.author.loginname">
         </v-avatar>
         <span style="text-indent: 1em;">{{data.author.loginname}}</span>
-      </div>
+      </router-link>
       <div :class="$style.right">
         <v-btn flat @click="$emit('click-up')">
           <v-icon :color="data.is_uped ? 'pink' : 'black'">thumb_up</v-icon>
