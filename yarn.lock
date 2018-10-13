@@ -2697,10 +2697,10 @@ dir-glob@^2.0.0:
     arrify "^1.0.1"
     path-type "^3.0.0"
 
-directive-photoswipe@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/directive-photoswipe/-/directive-photoswipe-1.0.1.tgz#2133ada1f11f314fb686e9bcc6896410f600378a"
-  integrity sha512-INgRZ3RdLSBwep2ok4CrKdMzSdOTxnQdxMKiTZdBzNssg7egIMmTyrNkI6esgbLqCNeRraIPx/JogRRuazhY1Q==
+directive-photoswipe@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/directive-photoswipe/-/directive-photoswipe-1.0.2.tgz#d988ca5a7c086072c5c76adc774b703dcd7b8605"
+  integrity sha512-8RnewfUnz3u0Qzpk8qohDtE8thWOBqBMdHiXM9HBbjqQN3WJ4WIX1Bf7Pc4gd+GtH59zdpJipfk1wz16xP3bfQ==
   dependencies:
     "@types/photoswipe" "^4.0.28"
     photoswipe "^4.1.2"
