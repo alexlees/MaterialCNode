@@ -87,7 +87,7 @@ export default class NewReply extends Vue {
 }
 
 .slideInUp {
-  animation: slideInUp 1s ease both;
+  animation: slideInUp 400ms ease both;
 }
 @keyframes slideOutDown {
   from {
@@ -101,7 +101,7 @@ export default class NewReply extends Vue {
 }
 
 .slideOutDown {
-  animation: slideOutDown 1s ease both;
+  animation: slideOutDown 400ms ease both;
 }
 </style>
 <style module>
