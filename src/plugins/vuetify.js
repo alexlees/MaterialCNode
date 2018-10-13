@@ -15,12 +15,11 @@ import {
   VAvatar,
   VChip,
   VAutocomplete,
-  VDialog,
   VSwitch,
   transitions,
 } from 'vuetify'
 import 'vuetify/src/stylus/app.styl'
-import { Ripple, Scroll, Touch } from 'vuetify/es5/directives'
+import { Ripple, Touch } from 'vuetify/es5/directives'
 import zhHans from 'vuetify/src/locale/zh-Hans'
 
 Vue.use(Vuetify, {
@@ -39,7 +38,6 @@ Vue.use(Vuetify, {
     VAvatar,
     VChip,
     VAutocomplete,
-    VDialog,
     VSwitch,
     transitions,
   },
@@ -54,7 +52,6 @@ Vue.use(Vuetify, {
   },
   directives: {
     Ripple,
-    Scroll,
     Touch,
   },
   customProperties: true,
