@@ -27,10 +27,10 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { CNodeTopicDetail } from '@/interface';
 import { namespace } from 'vuex-class';
 import { TopicModule } from '@/store/types';
 import { TopicState } from '@/store/interface';
+import { CNodeTopicDetail } from '@/interface';
 
 const Module = namespace(TopicModule);
 @Component

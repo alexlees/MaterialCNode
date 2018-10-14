@@ -45,16 +45,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import { CNodeTopicDetail } from '@/interface';
-import { topicActions, topicMutations, TopicModule } from '@/store/types';
+import { topicActions, TopicModule } from '@/store/types';
 import { namespace } from 'vuex-class';
 import {
+  CollectOrDeCollect,
   TopicState,
-  TopicGetTopicDetail,
-  TopicCollectOrDeCollect,
-  TopicSetReplyId,
-  TopicDeleteReplyId,
 } from '@/store/interface';
 import { Log } from '@/utils';
 import '@/directives/directive-photoswipe';
@@ -65,39 +62,8 @@ const Module = namespace(TopicModule);
 export default class TopicDetail extends Vue {
   @Module.State((state: TopicState) => state.topicDetail)
   private topicDetail!: CNodeTopicDetail;
-  @Module.Action(topicActions.GET_TOPIC_DETAIL)
-  private getTopicDetail!: TopicGetTopicDetail;
-  @Module.Mutation(topicMutations.DELET_TOPIC_DETAIL)
-  private deleteTopicDetail!: () => void;
   @Module.Action(topicActions.COLLECT_OR_DE_COLLECT)
-  private collectOrDeCollect!: TopicCollectOrDeCollect;
-  @Module.Mutation(topicMutations.SET_REPLY_ID)
-  private setReplyId!: TopicSetReplyId;
-  @Module.Mutation(topicMutations.DELET_REPLY_ID)
-  private deleteReplyId!: TopicDeleteReplyId;
-
-  private created() {
-    this.dispatchGetTopicDetail();
-    this.shouldScroll();
-  }
-  private activated() {
-    this.dispatchGetTopicDetail();
-    this.shouldScroll();
-  }
-  private deactivated() {
-    this.deleteTopicDetail();
-    this.deleteReplyId();
-  }
-  private shouldScroll() {
-    if (this.$route.hash) {
-      this.setReplyId(this.$route.hash.slice(1));
-    }
-  }
-  private async dispatchGetTopicDetail() {
-    const { id } = this.$route.params;
-    const isOk = await this.getTopicDetail(id);
-    // TODO 错误提示
-  }
+  private collectOrDeCollect!: CollectOrDeCollect;
   private toNewReply() {
     this.$router.push({path: `/topic/${this.$route.params.id}/newreply`});
   }

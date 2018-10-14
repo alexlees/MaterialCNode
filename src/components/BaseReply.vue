@@ -1,5 +1,5 @@
 <template>
-  <div :class="{[$style.topic]: true, [$style.select]: data.id === replyId}">
+  <div :class="{[$style.topic]: true}" :id="data.id">
     <header :class="$style.header">
       <router-link :class="$style.author" v-ripple tag="div" :to="`/user/${data.author.loginname}`">
         <v-avatar :size="40">
@@ -24,11 +24,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import { CNodeReply } from '@/interface';
 import BaseMarkDown from './BaseMarkDown.vue';
 import { Log } from '@/utils';
-import { namespace } from 'vuex-class';
-import { topicActions, topicMutations, TopicModule } from '@/store/types';
-import { TopicState } from '@/store/interface';
 
-const Module = namespace(TopicModule);
 @Component({
   components: {
     BaseMarkDown,
@@ -37,15 +33,6 @@ const Module = namespace(TopicModule);
 export default class BaseReply extends Vue {
   @Prop({required: true})
   private data!: CNodeReply;
-  @Module.State((state: TopicState) => state.replyId)
-  private replyId!: string;
-  private mounted() {
-    if (this.data.id === this.replyId) {
-      setTimeout(() => {
-        this.$el.scrollIntoView({behavior: 'smooth', block: 'end'});
-      }, 20);
-    }
-  }
 }
 </script>
 

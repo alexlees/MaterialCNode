@@ -17,6 +17,18 @@ import { Log } from '@/utils/log';
   },
 })
 export default class App extends Vue {
+  private created() {
+    window.addEventListener('offline', () => this.netWork('offline'));
+    window.addEventListener('online', () => this.netWork('online'));
+  }
+  private netWork(tag: 'offline' | 'online') {
+    Log.log(tag);
+    if (tag === 'offline') {
+      this.$router.push('/network');
+    } else {
+      // TODO
+    }
+  }
 }
 </script>
 <style>
