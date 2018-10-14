@@ -20,4 +20,7 @@ export default class BaseMarkDown extends Vue {
   line-height: inherit;
   word-wrap: break-word;
 }
+.markdown-body code {
+  box-shadow: none;
+}
 </style>
