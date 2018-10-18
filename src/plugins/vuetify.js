@@ -16,10 +16,14 @@ import {
   VChip,
   VAutocomplete,
   VSwitch,
+  VSelect,
+  VTextarea,
+  VDialog,
+  VForm,
   transitions,
 } from 'vuetify'
 import 'vuetify/src/stylus/app.styl'
-import { Ripple, Touch } from 'vuetify/es5/directives'
+import { Ripple } from 'vuetify/es5/directives'
 import zhHans from 'vuetify/src/locale/zh-Hans'
 
 Vue.use(Vuetify, {
@@ -39,6 +43,10 @@ Vue.use(Vuetify, {
     VChip,
     VAutocomplete,
     VSwitch,
+    VSelect,
+    VTextarea,
+    VDialog,
+    VForm,
     transitions,
   },
   theme: {
@@ -52,7 +60,6 @@ Vue.use(Vuetify, {
   },
   directives: {
     Ripple,
-    Touch,
   },
   customProperties: true,
   iconfont: 'md',

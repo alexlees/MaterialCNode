@@ -6,16 +6,20 @@ export const rootMutations = {
   DELETE_ACCESS_TOKEN: 'DELETE_ACCESS_TOKEN',
   SHOW_SNACK_BAR: 'SHOW_SNACK_BAR',
   HIDE_SNACK_BAR: 'HIDE_SNACK_BAR',
+  SHOW_DIALOG: 'SHOW_DIALOG',
+  HIDE_DIALOG: 'HIDE_DIALOG',
   TOGGLE_ADD_PREFIX: 'TOGGLE_ADD_PREFIX',
+  SET_MYFAVORITES: 'SET_MYFAVORITES',
 };
 
 export const rootActions = {
   LOGIN: 'LOGIN',
   GET_USER_INFO: 'GET_USER_INFO',
   LOGOUT: 'LOGOUT',
+  GET_MYFAVORITES: 'GET_MYFAVORITES',
+  CREATE_TOPIC: 'CREATE_TOPIC',
 };
 export * from './home/types';
 export * from './topic/types';
-export * from './favorite/types';
 export * from './author/types';
 export * from './messages/types';

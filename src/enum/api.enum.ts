@@ -6,6 +6,7 @@ export enum TopicTabs {
   job,
   dev,
 }
+
 export const TOPIC_TABS = {
   ask: {
     code: TopicTabs.ask,

@@ -58,7 +58,11 @@ export interface CNodeMessage {
     create_at: Date;
   };
 }
-
+export interface CNodeNewTopic {
+  success: boolean;
+  topic_id?: string;
+  error_msg?: string;
+}
 export interface CNodeMessages {
   has_read_messages: CNodeMessage[];
   hasnot_read_messages: CNodeMessage[];

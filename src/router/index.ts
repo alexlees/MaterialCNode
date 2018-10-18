@@ -1,13 +1,16 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import { Log } from '@/utils/log';
 import store from '@/store';
 import { topicActions } from '@/store/types';
 
 const Root = () => import('@/views/Root/index.vue');
 const Home = () => import('@/views/Home/index.vue');
-const Favorite = () => import('@/views/Favorite/index.vue');
+const Create = () => import('@/views/Create/index.vue');
 const Me = () => import('@/views/Me/index.vue');
+const MyDetail = () => import('@/views/Me/MyDetail.vue');
+const MyFavorite = () => import('@/views/Me/MyFavorite.vue');
+const MyReply = () => import('@/views/Me/MyReply.vue');
+const MyTopic = () => import('@/views/Me/MyTopic.vue');
 const Message = () => import('@/views/Message/index.vue');
 const TopicDetail = () => import('@/views/TopicDetail/index.vue');
 const NetWork = () => import('@/views/NetWork/index.vue');
@@ -30,20 +33,39 @@ export default new Router({
       redirect: '/home',
       children: [
         {
-          path: '/home',
+          path: 'home/',
           component: Home,
         },
         {
-          path: '/favorite',
-          component: Favorite,
+          path: 'create/',
+          component: Create,
         },
         {
-          path: '/message',
+          path: 'message',
           component: Message,
         },
         {
           path: '/me',
           component: Me,
+          redirect: '/me/detail',
+          children: [
+            {
+              path: 'detail/',
+              component: MyDetail,
+            },
+            {
+              path: 'favorite/',
+              component: MyFavorite,
+            },
+            {
+              path: 'reply/',
+              component: MyReply,
+            },
+            {
+              path: 'topic/',
+              component: MyTopic,
+            },
+          ],
         },
       ],
     },

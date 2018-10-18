@@ -59,14 +59,26 @@ export default class NewReply extends Vue {
   private newReply!: TopicNewReply;
 
   private content: string = '';
-  private at = [];
+  private at: string[] = [];
 
   private get users() {
-    const replyAuthors = this.replies.map((v) => v.author.loginname);
-    return [this.topicAuthorName, ...replyAuthors];
+    const replyAuthors = this.replies.map((v) => `@${v.author.loginname}`);
+    return [`@${this.topicAuthorName}`, ...replyAuthors];
+  }
+  private created() {
+    this.setContent();
+  }
+  private activated() {
+    this.setContent();
+  }
+  private setContent() {
+    const {at} = this.$route.query;
+    if (at) {
+      this.content = `@${at} `;
+    }
   }
   private async sendReply() {
-    const at = this.at.map((s) => `@${s}`)
+    const at = this.at.map((s) => s)
     .join(' ');
 
     await this.newReply(`${at} ${this.content}`);
@@ -76,7 +88,7 @@ export default class NewReply extends Vue {
   }
 }
 </script>
-<style>
+<style scoped>
 @keyframes slideInUp {
   from {
     transform: translate3d(0, 100%, 0);

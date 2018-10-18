@@ -8,13 +8,16 @@
         <span style="text-indent: 1em;">{{data.author.loginname}}</span>
       </router-link>
       <div :class="$style.right">
+        <v-btn flat :to="`/topic/${$route.params.id}/newreply?at=${data.author.loginname}`">
+          <v-icon>reply</v-icon>
+        </v-btn>
         <v-btn flat @click="$emit('click-up')">
           <v-icon :color="data.is_uped ? 'pink' : 'black'">thumb_up</v-icon>
           <span style="text-indent: 1em;">{{data.ups.length}}</span>
         </v-btn>
       </div>
     </header>
-    <BaseMarkDown :content="data.content"/>
+    <BaseMarkDown :content="data.content" style="padding: 15px;"/>
     <v-divider/>
   </div>
 </template>
@@ -53,9 +56,6 @@ export default class BaseReply extends Vue {
   flex: 1;
   line-height: 40px;
 }
-.header{
-  padding: 10px;
-}
 .header, .author, .content{
   min-height: 40px;
   display: flex;
@@ -67,8 +67,8 @@ export default class BaseReply extends Vue {
 .right{
   min-width: 40px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: flex-start;
   align-items: center;
   align-content: center;
 }

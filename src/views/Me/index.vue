@@ -1,27 +1,25 @@
 <template>
   <div>
-    <v-toolbar app color="primary">
-      <v-toolbar-title class="white--text">个人中心</v-toolbar-title>
+    <v-toolbar app color="primary" tabs>
+      <v-toolbar-title class="white--text">{{user ? user.loginname : '未登录'}}</v-toolbar-title>
       <v-spacer/>
-      <v-btn icon v-if="user" :to="`/user/${user.loginname}`">
-        <v-icon color="white">more_vert</v-icon>
+      <v-btn icon @click="logInOrOut">
+        <v-icon color="white">{{user ? 'power_settings_new' : 'account_circle'}}</v-icon>
       </v-btn>
+      <v-tabs slot="extension" centered grow color="primary">
+        <v-tab to="/me/topic" replace class="white--text">主题</v-tab>
+        <v-tab to="/me/detail" replace class="white--text">详情</v-tab>
+        <v-tab to="/me/favorite" replace class="white--text">收藏</v-tab>
+        <v-tab to="/me/reply" replace class="white--text">评论</v-tab>
+      </v-tabs>
     </v-toolbar>
-    <v-btn block dark v-if="user" @click="logOut">
-      <span>注销</span>
-      <v-icon right dark>person</v-icon>
-    </v-btn>
-    <v-btn block color="primary" dark v-else to="/login">
-      <span>登陆</span>
-      <v-icon right dark>person</v-icon>
-    </v-btn>
-    <v-switch :input-value="addPrefix" @change="toggle" label="评论加尾"></v-switch>
+    <router-view/>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { UserInfo, RootState, RootActionLogOut } from '@/store/interface';
+import { UserInfo, RootState, RootActionLogOut, RootActionGetFavor, RootMutationShowDialog, Dialog } from '@/store/interface';
 import { State, Action, Mutation } from 'vuex-class';
 import { rootActions, rootMutations } from '@/store/types';
 
@@ -33,7 +31,29 @@ export default class Me extends Vue {
   private addPrefix!: boolean;
   @Mutation(rootMutations.TOGGLE_ADD_PREFIX)
   private toggle!: () => void;
+  @Mutation(rootMutations.SHOW_DIALOG)
+  private showDialog!: RootMutationShowDialog;
   @Action(rootActions.LOGOUT)
   private logOut!: RootActionLogOut;
+  @Action(rootActions.GET_MYFAVORITES)
+  private getMyFavorites!: RootActionGetFavor;
+  private created() {
+    this.getMyFavorites();
+  }
+  private activated() {
+    this.getMyFavorites();
+  }
+  private logInOrOut() {
+    if (this.user) {
+      const dialog: Dialog = {
+        title: '注意?',
+        content: '确认退出登陆?',
+        successCb: () => this.logOut(),
+      };
+      this.showDialog(dialog);
+    } else {
+      this.$router.push('/login');
+    }
+  }
 }
 </script>

@@ -1,4 +1,4 @@
-import { GetTopicsParams, GetTopicDetailParams, PostCollect } from '@/interface';
+import { GetTopicsParams, GetTopicDetailParams, PostCollect, PostNewTopicData, CNodeNewTopic } from '@/interface';
 import { TopicTabs } from '@/enum';
 import { request, getAccessToken, Log } from '@/utils';
 import { CNodeTopic, CNodeTopicDetail, PostNewReplyData } from '@/interface';
@@ -81,4 +81,12 @@ export async function postReplyUps(replyId: string, params: {accesstoken: string
 export async function postNewReply(topicId: string, newReplyData: PostNewReplyData) {
   const { data} = await request.post(`/topic/${topicId}/replies`, newReplyData);
   return data;
+}
+/**
+ * post /topics 新建主题
+ * @param newTopic PostNewTopicData
+ */
+export async function postNewTopic(newTopic: PostNewTopicData) {
+  const { data} = await request.post(`/topics`, newTopic);
+  return data as CNodeNewTopic;
 }
