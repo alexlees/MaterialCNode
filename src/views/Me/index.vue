@@ -19,7 +19,14 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { UserInfo, RootState, RootActionLogOut, RootActionGetFavor, RootMutationShowDialog, Dialog } from '@/store/interface';
+import {
+  UserInfo,
+  RootState,
+  RootActionLogOut,
+  RootActionGetFavor,
+  RootMutationShowDialog,
+  Dialog,
+} from '@/store/interface';
 import { State, Action, Mutation } from 'vuex-class';
 import { rootActions, rootMutations } from '@/store/types';
 
