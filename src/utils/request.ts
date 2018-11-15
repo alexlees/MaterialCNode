@@ -35,7 +35,7 @@ AxiosRequestAxiosInstance.interceptors.response.use(
     if (!res.data.success) {
       store.commit(rootMutations.SHOW_SNACK_BAR, {message: res.data.error_msg});
       Log.log(res.data.error_msg);
-      return Promise.reject(res.data.error_msg);
+      return Promise.reject(new Error(res.data.error_msg));
     }
     return res;
   },

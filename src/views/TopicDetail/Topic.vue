@@ -15,7 +15,7 @@ const Module = namespace('topic');
   },
 })
 export default class Topic extends Vue {
-  @Module.State((state: TopicState) => state.topicDetail ? state.topicDetail.content : '加载中...')
+  @Module.State((state: TopicState) => state.topicDetail!.content)
   private content!: string;
 }
 </script>

@@ -55,7 +55,6 @@ export default class User extends Vue {
   private onRouteChange(value: string) {
     if (value) {
       this.getAuthor(value);
-      this.selectTab = 1;
     }
   }
   private created() {
@@ -63,10 +62,6 @@ export default class User extends Vue {
   }
   private activated() {
     this.getInfo();
-  }
-  private deactivated() {
-    this.deleAuthor();
-    this.selectTab = 1;
   }
   private getInfo() {
     this.getAuthor(this.$route.params.name);

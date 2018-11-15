@@ -42,29 +42,43 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
 import { TopicModule, topicActions } from '@/store/types';
-import { TopicState, TopicNewReply } from '@/store/interface';
+import { TopicState, NewReply as TopicNewReply } from '@/store/interface';
 import { CNodeReply } from '@/interface';
 const Module = namespace(TopicModule);
 
 @Component
 export default class NewReply extends Vue {
-  @Module.State((state: TopicState) => state.topicDetail ? state.topicDetail.replies : [])
+  @Module.State((state: TopicState) => state.topicDetail!.replies)
   private replies!: CNodeReply[];
-  @Module.State((state: TopicState) => state.topicDetail ? state.topicDetail.author.loginname : '')
+  @Module.State((state: TopicState) => state.topicDetail!.author.loginname)
   private topicAuthorName!: string;
   @Module.Action(topicActions.POST_NEW_REPLY)
   private newReply!: TopicNewReply;
+
   private content: string = '';
-  private at = [];
+  private at: string[] = [];
+
   private get users() {
-    const replyAuthors = this.replies.map((v) => v.author.loginname);
-    return [this.topicAuthorName, ...replyAuthors];
+    const replyAuthors = this.replies.map((v) => `@${v.author.loginname}`);
+    return [`@${this.topicAuthorName}`, ...replyAuthors];
+  }
+  private created() {
+    this.setContent();
+  }
+  private activated() {
+    this.setContent();
+  }
+  private setContent() {
+    const {at} = this.$route.query;
+    if (at) {
+      this.content = `@${at} `;
+    }
   }
   private async sendReply() {
-    const at = this.at.map((s) => `@${s}`)
+    const at = this.at.map((s) => s)
     .join(' ');
 
     await this.newReply(`${at} ${this.content}`);
@@ -74,7 +88,7 @@ export default class NewReply extends Vue {
   }
 }
 </script>
-<style>
+<style scoped>
 @keyframes slideInUp {
   from {
     transform: translate3d(0, 100%, 0);

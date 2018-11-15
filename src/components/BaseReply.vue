@@ -1,5 +1,5 @@
 <template>
-  <div :class="{[$style.topic]: true, [$style.select]: data.id === replyId}">
+  <div :class="{[$style.topic]: true}" :id="data.id">
     <header :class="$style.header">
       <router-link :class="$style.author" v-ripple tag="div" :to="`/user/${data.author.loginname}`">
         <v-avatar :size="40">
@@ -8,13 +8,16 @@
         <span style="text-indent: 1em;">{{data.author.loginname}}</span>
       </router-link>
       <div :class="$style.right">
+        <v-btn flat :to="`/topic/${$route.params.id}/newreply?at=${data.author.loginname}`">
+          <v-icon>reply</v-icon>
+        </v-btn>
         <v-btn flat @click="$emit('click-up')">
           <v-icon :color="data.is_uped ? 'pink' : 'black'">thumb_up</v-icon>
           <span style="text-indent: 1em;">{{data.ups.length}}</span>
         </v-btn>
       </div>
     </header>
-    <BaseMarkDown :content="data.content"/>
+    <BaseMarkDown :content="data.content" style="padding: 15px;"/>
     <v-divider/>
   </div>
 </template>
@@ -24,11 +27,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import { CNodeReply } from '@/interface';
 import BaseMarkDown from './BaseMarkDown.vue';
 import { Log } from '@/utils';
-import { namespace } from 'vuex-class';
-import { topicActions, topicMutations, TopicModule } from '@/store/types';
-import { TopicState } from '@/store/interface';
 
-const Module = namespace(TopicModule);
 @Component({
   components: {
     BaseMarkDown,
@@ -37,15 +36,6 @@ const Module = namespace(TopicModule);
 export default class BaseReply extends Vue {
   @Prop({required: true})
   private data!: CNodeReply;
-  @Module.State((state: TopicState) => state.replyId)
-  private replyId!: string;
-  private mounted() {
-    if (this.data.id === this.replyId) {
-      setTimeout(() => {
-        this.$el.scrollIntoView({behavior: 'smooth', block: 'end'});
-      }, 20);
-    }
-  }
 }
 </script>
 
@@ -66,9 +56,6 @@ export default class BaseReply extends Vue {
   flex: 1;
   line-height: 40px;
 }
-.header{
-  padding: 10px;
-}
 .header, .author, .content{
   min-height: 40px;
   display: flex;
@@ -80,8 +67,8 @@ export default class BaseReply extends Vue {
 .right{
   min-width: 40px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: flex-start;
   align-items: center;
   align-content: center;
 }
