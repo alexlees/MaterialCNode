@@ -1,12 +1,12 @@
 <template>
   <header :class="$style.header">
-    <div :class="$style.author" v-ripple>
+    <div :class="$style.author">
       <v-avatar :size="40">
         <img :src="avatar" :alt="name">
       </v-avatar>
       <span style="margin-left: 1em;">{{name}}</span>
     </div>
-    <div :class="$style.right" v-ripple @click="$emit('click-right')">
+    <div :class="$style.right"  @click="$emit('click-right')">
     </div>
   </header>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <v-card :class="$style.topic">
     <header :class="$style.header">
-      <router-link tag="div" :to="`/user/${data.author.loginname}`" :class="$style.author" v-ripple>
+      <router-link tag="div" :to="`/user/${data.author.loginname}`" :class="$style.author" >
         <v-avatar :size="40">
           <img :src="data.author.avatar_url" :alt="data.author.loginname">
         </v-avatar>
@@ -11,7 +11,7 @@
         <span class="greeb--text">{{data.has_read ? '已读' : '未读'}}</span>
       </div>
     </header>
-    <router-link tag="main" :to="`/topic/${data.topic.id}/reply#${data.reply.id}`" :class="$style.content" v-ripple>
+    <router-link tag="main" :to="`/topic/${data.topic.id}/reply#${data.reply.id}`" :class="$style.content" >
       <BaseMarkDown :content="data.reply.content"/>
     </router-link>
     <v-divider/>

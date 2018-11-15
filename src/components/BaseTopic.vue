@@ -1,7 +1,7 @@
 <template>
   <v-card :class="$style.topic">
     <header :class="$style.header">
-      <router-link tag="div" :to="`/user/${data.author.loginname}`" :class="$style.author" v-ripple>
+      <router-link tag="div" :to="`/user/${data.author.loginname}`" :class="$style.author" >
         <v-avatar :size="40">
           <img :src="data.author.avatar_url" :alt="data.author.loginname">
         </v-avatar>
@@ -10,7 +10,7 @@
       <div :class="$style.right">
       </div>
     </header>
-    <router-link tag="main" :to="`/topic/${data.id}`" :class="$style.content" v-ripple>
+    <router-link tag="main" :to="`/topic/${data.id}`" :class="$style.content" >
       <p>{{data.title}}</p>
     </router-link>
     <v-divider/>
