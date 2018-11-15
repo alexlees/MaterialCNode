@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-toolbar color="white" app tabs :scroll-off-screen="scroll">
+    <v-toolbar color="white" app tabs>
       <v-btn icon @click="$router.back()">
         <v-icon>arrow_back</v-icon>
       </v-btn>
@@ -65,9 +65,6 @@ export default class TopicDetail extends Vue {
   @Module.Action(topicActions.COLLECT_OR_DE_COLLECT)
   private collectOrDeCollect!: CollectOrDeCollect;
 
-  private get scroll() {
-    return document.body.scrollHeight >= 1000;
-  }
   private toNewReply() {
     this.$router.push({path: `/topic/${this.$route.params.id}/newreply`});
   }

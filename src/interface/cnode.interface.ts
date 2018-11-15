@@ -67,3 +67,7 @@ export interface CNodeMessages {
   has_read_messages: CNodeMessage[];
   hasnot_read_messages: CNodeMessage[];
 }
+export interface MarkMessageRes {
+  success: boolean;
+  marked_msg_id: string;
+}

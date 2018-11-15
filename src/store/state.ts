@@ -14,7 +14,7 @@ const state: RootState = {
   prefix: `
 
 ------
-来自[MaterialCNode](https://alexlees.top)
+来自[MaterialCNode](${window.location.host})
 `,
   addPrefix: true,
   myFavorites: [],

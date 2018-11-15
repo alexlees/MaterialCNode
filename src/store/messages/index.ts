@@ -30,6 +30,11 @@ const MessageModule: Module<MessageState, RootState> = {
         commit(rootMutations.SHOW_SNACK_BAR, {message: '未登录!'} as SnackBar, { root: true });
       }
     },
+    async [messageActions.MARK_MESSAGE]({rootState}, messageId: string) {
+      if (rootState.accesstoken) {
+        postMessage(messageId, rootState.accesstoken);
+      }
+    },
   },
 };
 export default MessageModule;

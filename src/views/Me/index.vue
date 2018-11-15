@@ -42,14 +42,7 @@ export default class Me extends Vue {
   private showDialog!: RootMutationShowDialog;
   @Action(rootActions.LOGOUT)
   private logOut!: RootActionLogOut;
-  @Action(rootActions.GET_MYFAVORITES)
-  private getMyFavorites!: RootActionGetFavor;
-  private created() {
-    this.getMyFavorites();
-  }
-  private activated() {
-    this.getMyFavorites();
-  }
+
   private logInOrOut() {
     if (this.user) {
       const dialog: Dialog = {

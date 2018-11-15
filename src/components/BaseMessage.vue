@@ -11,9 +11,9 @@
         <span class="greeb--text">{{data.has_read ? '已读' : '未读'}}</span>
       </div>
     </header>
-    <router-link tag="main" :to="`/topic/${data.topic.id}/reply#${data.reply.id}`" :class="$style.content" >
+    <main @click="goReply" :to="`/topic/${data.topic.id}/reply#${data.reply.id}`" :class="$style.content" >
       <BaseMarkDown :content="data.reply.content"/>
-    </router-link>
+    </main>
     <v-divider/>
     <footer :class="$style.footer">
       <v-btn flat round disabled>
@@ -30,6 +30,11 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { CNodeTopic, CNodeMessage } from '@/interface/cnode.interface';
 import BaseMarkDown from './BaseMarkDown.vue';
+import { namespace } from 'vuex-class';
+import { MessageModule } from '@/store/types';
+import { MarkMessage } from '@/store/interface';
+const Module = namespace(MessageModule);
+
 @Component({
   components: {
     BaseMarkDown,
@@ -43,6 +48,14 @@ import BaseMarkDown from './BaseMarkDown.vue';
 export default class BaseMessage extends Vue {
   @Prop({ required: true })
   private data!: CNodeMessage;
+  private markMessage!: MarkMessage;
+  private goReply() {
+    const data = this.data;
+    if (data.has_read === false) {
+      this.markMessage(data.id);
+    }
+    this.$router.push(`/topic/${data.topic.id}/reply#${data.reply.id}`);
+  }
 }
 </script>
 
