@@ -27,11 +27,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue, Prop, Model } from 'vue-property-decorator';
 import { CNodeTopic, CNodeMessage } from '@/interface/cnode.interface';
 import BaseMarkDown from './BaseMarkDown.vue';
 import { namespace } from 'vuex-class';
-import { MessageModule } from '@/store/types';
+import { MessageModule, messageActions } from '@/store/types';
 import { MarkMessage } from '@/store/interface';
 const Module = namespace(MessageModule);
 
@@ -48,6 +48,7 @@ const Module = namespace(MessageModule);
 export default class BaseMessage extends Vue {
   @Prop({ required: true })
   private data!: CNodeMessage;
+  @Module.Action(messageActions.MARK_MESSAGE)
   private markMessage!: MarkMessage;
   private goReply() {
     const data = this.data;

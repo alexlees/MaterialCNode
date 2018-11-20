@@ -5,7 +5,7 @@ import { messageMutations, messageActions } from '@/store/messages/types';
 import { CNodeMessages } from '@/interface';
 import { rootMutations } from '@/store/types';
 import { Log } from '@/utils';
-import { getUserMessages } from '@/api';
+import { getUserMessages, postMarkMessage } from '@/api';
 
 const MessageModule: Module<MessageState, RootState> = {
   namespaced: true,
@@ -32,7 +32,7 @@ const MessageModule: Module<MessageState, RootState> = {
     },
     async [messageActions.MARK_MESSAGE]({rootState}, messageId: string) {
       if (rootState.accesstoken) {
-        postMessage(messageId, rootState.accesstoken);
+        postMarkMessage(messageId, rootState.accesstoken);
       }
     },
   },
