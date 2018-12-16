@@ -5,6 +5,7 @@ import {
   CNodeTopic,
   GetUserMessagesParams,
   CNodeMessages,
+  MarkMessageRes,
 } from '@/interface';
 /**
  * post /accesstoken 验证 accessToken 的正确性
@@ -43,4 +44,15 @@ export async function getUserFavorite(loginname: string) {
 export async function getUserMessages(getUserMessagesParams: GetUserMessagesParams) {
   const { data } = await request.get('/messages', {params: getUserMessagesParams});
   return data.data as CNodeMessages;
+}
+
+
+/**
+ * post /message/mark_one/:msg_id 标记单个消息为已读
+ * @param messageId
+ * @param accesstoken
+ */
+export async function postMarkMessage(messageId: string, accesstoken: string) {
+  const {data} = await request.post(`/message/mark_one/${messageId}`, {accesstoken});
+  return data.data as MarkMessageRes;
 }

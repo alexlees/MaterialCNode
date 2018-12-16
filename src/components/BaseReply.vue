@@ -1,7 +1,7 @@
 <template>
   <div :class="{[$style.topic]: true}" :id="data.id">
     <header :class="$style.header">
-      <router-link :class="$style.author" v-ripple tag="div" :to="`/user/${data.author.loginname}`">
+      <router-link :class="$style.author"  tag="div" :to="`/user/${data.author.loginname}`">
         <v-avatar :size="40">
           <img :src="data.author.avatar_url" :alt="data.author.loginname">
         </v-avatar>

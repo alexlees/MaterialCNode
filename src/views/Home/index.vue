@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-toolbar dark color="primary" tabs app scroll-off-screen>
+    <v-toolbar dark color="primary" tabs app>
       <v-toolbar-title class="white--text">CNode.js中文社区</v-toolbar-title>
       <v-spacer/>
       <v-btn icon href="https://github.com/alexlees/MaterialCNode">

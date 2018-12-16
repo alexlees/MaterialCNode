@@ -4,4 +4,5 @@ export const messageMutations = {
 };
 export const messageActions = {
   GET_USER_MESSAGES: 'GET_USER_MESSAGES',
+  MARK_MESSAGE: 'MARK_MESSAGE',
 };

@@ -71,6 +71,10 @@ export default class NewReply extends Vue {
   private activated() {
     this.setContent();
   }
+  private deactivated() {
+    this.content = '';
+    this.at = [];
+  }
   private setContent() {
     const {at} = this.$route.query;
     if (at) {

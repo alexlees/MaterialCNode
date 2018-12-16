@@ -23,7 +23,6 @@ import {
   transitions,
 } from 'vuetify'
 import 'vuetify/src/stylus/app.styl'
-import { Ripple } from 'vuetify/es5/directives'
 import zhHans from 'vuetify/src/locale/zh-Hans'
 
 Vue.use(Vuetify, {
@@ -48,18 +47,6 @@ Vue.use(Vuetify, {
     VDialog,
     VForm,
     transitions,
-  },
-  theme: {
-    // primary: '#ee44aa',
-    // secondary: '#424242',
-    // accent: '#82B1FF',
-    // error: '#FF5252',
-    // info: '#2196F3',
-    // success: '#4CAF50',
-    // warning: '#FFC107',
-  },
-  directives: {
-    Ripple,
   },
   customProperties: true,
   iconfont: 'md',

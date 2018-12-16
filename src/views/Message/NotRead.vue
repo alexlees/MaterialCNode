@@ -12,6 +12,7 @@ import { MessageModule, messageActions } from '@/store/types';
 import { CNodeMessage } from '@/interface';
 import { MessageState } from '@/store/interface';
 import BaseMessage from '@/components/BaseMessage.vue';
+import { Log } from '@/utils';
 
 const Module = namespace(MessageModule);
 @Component({

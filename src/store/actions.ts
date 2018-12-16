@@ -10,7 +10,7 @@ const actions: ActionTree<RootState, RootState> = {
     if (!accesstoken && state.accesstoken) {
       accesstoken = state.accesstoken;
     } else if (!accesstoken && !state.accesstoken) {
-      commit(rootMutations.SHOW_SNACK_BAR, {message: 'accesstoken错误'});
+      // commit(rootMutations.SHOW_SNACK_BAR, {message: 'accesstoken错误'});
       return false;
     }
     try {
