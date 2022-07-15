@@ -1,4 +1,4 @@
-# [MaterialCNode](https://alexlees.top)
+# [MaterialCNode](https://alexleess.github.io/)
 
 > 一个好用的PWA CNode.js社区。
 
